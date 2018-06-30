@@ -3,6 +3,7 @@ import React from 'react'
 import './App.css'
 import MyReads from './Components/MyReads'
 import Search from './Components/Search'
+import NoMatch from './Components/NoMatch'
 import { getAll, update } from './BooksAPI'
 
 import { Switch, Route } from 'react-router-dom'
@@ -45,8 +46,10 @@ class BooksApp extends React.Component {
             <Search
               bookShelf = {this.state.books}
               moveBook = {this.moveBook}
+
             />
           )}/>
+          <Route component={NoMatch}/>
         </Switch>
 
       </div>

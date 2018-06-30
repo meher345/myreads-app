@@ -8,9 +8,8 @@ import { withRouter } from 'react-router'
 class Search extends React.Component {
 
   state = {
-    filter: '',
+    queryString: '',
     books: []
-
   }
 
   render() {
@@ -31,6 +30,7 @@ class Search extends React.Component {
             <div className="search-books-results">
               <ol className="books-grid">
                 {this.state.books.map( book => (
+
                   <li key={ book.id }>
                     <Book
                       book={ book }
@@ -44,15 +44,19 @@ class Search extends React.Component {
       </div>
     )
   }
-  executeSearch = (filter) => {
-    if(!filter) {
-      this.setState({ filter: '', books: []})
+  executeSearch = (queryString) => {
+    if(!queryString) {
+      this.setState({ queryString: '', books: []})
     } else {
-      this.setState({ filter: filter.trim() })
-      search(filter).then((books) => {
+      this.setState({ queryString: queryString.trim() })
+      search(queryString).then((books) => {
         if (books.error) {
           books = []
         }
+        books.map(book =>
+          (this.props.bookShelf.filter((bookInShelf) =>
+            bookInShelf.id === book.id).map(b =>
+              book.shelf = b.shelf)))
 
         this.setState({books: books})
       })

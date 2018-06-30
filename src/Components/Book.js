@@ -19,7 +19,11 @@ class Book extends React.Component {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks !== undefined ? this.props.book.imageLinks.thumbnail: NO_COVER_IMAGE })`}}></div>
           <div className="book-shelf-changer">
-            <select value="move" onChange={(e) => this.updateBook(e.target.value)}>
+            <select
+              value={this.props.book.shelf ?
+                      this.props.book.shelf :
+                      'none'}
+              onChange={(e) => this.updateBook(e.target.value)}>
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -28,7 +32,7 @@ class Book extends React.Component {
             </select>
           </div>
         </div>
-        
+
         <div className="book-title">{this.props.book.title}</div>
         <div className="book-authors">{this.props.book.authors}</div>
 
